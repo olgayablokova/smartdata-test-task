@@ -1,12 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Routes, Route} from "react-router-dom";
+import {Home, Authorization} from './Pages';
+import {Registration} from './Template/Registration';
+import {List} from './List/List';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <div>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/authorization" element={<Authorization/>}></Route>
+        <Route path="/registration" element={<Registration/>}></Route>
+        <Route path="/list" element={<List/>}/>
+      </Routes>
     </div>
   );
 }
-
-export default App;
