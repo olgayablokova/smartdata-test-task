@@ -2,13 +2,12 @@ import {RegReducer} from "./RegReducer";
 import { legacy_createStore as createStore} from 'redux'
 import {applyMiddleware, combineReducers} from "redux";
 import thunk from 'redux-thunk';
-import {Reducer} from "../List/Store/Reducer";
-import { composeWithDevTools } from 'redux-devtools-extension'
-import {ReducerBooks} from "../List/Store/BooksReducer";
+import {Reducer as ReducerAuthor} from "../Authors/Store/Reducer";
+import {Reducer as ReducerBooks} from "../Books/Store/Reducer";
 
 const reducer = combineReducers ({
     RegReducer,
-    authors: Reducer,
+    authors: ReducerAuthor,
     books: ReducerBooks
 });
 
