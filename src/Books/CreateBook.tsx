@@ -1,21 +1,7 @@
-import React, {memo, useState} from "react";
+import React, {useState} from "react";
 import {addBook} from './Store/Utils';
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../Utils";
-
-export const SelectAuthor = (userInfo: object) => {
-    const {fetch} = useTypedSelector(state => state.authors);
-    return (
-        <select onChange={(e) => {
-            userInfo.author_id = Number(e.target.value)
-        }}>
-            {fetch && fetch.map(el => {
-                    return <option value={el.author_id}>{el.name}</option>
-                }
-            )}
-        </select>
-    );
-}
 
 export function useInput (value: string): object  {
     const [state, setState] = useState(value);
@@ -35,14 +21,14 @@ export const CreateBook = () => {
     const desc = useInput('');
     const publicationDate = useInput('');
     const dispatch = useDispatch();
+    const {fetch} = useTypedSelector(state => state.authors);
 
     let userInfo = {
         name: name.state,
-        author_id: 9,
+        author_id: null,
         desc: desc.state,
         publication_date: publicationDate.state
     };
-    const Select = memo(SelectAuthor);
 
     return (
         <>
@@ -51,7 +37,15 @@ export const CreateBook = () => {
                        value={name.state}
                        placeholder="Название книги"
                        onChange={(e) => name.onChange(e)}/>
-                <Select userInfo={userInfo}/>
+                <select onChange={(e) => {
+                        userInfo.author_id = Number(e.target.value)
+                }}>
+                    <option value="all" selected>Все</option>
+                    {fetch && fetch.map(el => {
+                            return <option value={el.id}>{el.name}</option>
+                        }
+                    )}
+                </select>
                 <input type="text"
                        value={desc.state}
                        placeholder="Описание"

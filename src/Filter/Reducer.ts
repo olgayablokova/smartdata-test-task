@@ -1,19 +1,23 @@
 const DEFAULT_STATE:IState = {
-    author_id: 0
+    author_id: null
 }
 
 interface IState {
-    author_id: number
+    author_id: number | null
 }
 
 interface IAction {
-    type: 'EDIT',
+    type: 'EDITFILTER',
     payload: number
 }
 
 export const FilterReducer = (state = DEFAULT_STATE, action: IAction): IState => {
     switch (action.type) {
-        case "EDIT": return {author_id: action.payload};
+        case "EDITFILTER": return {author_id: action.payload};
         default: return state;
     }
+}
+
+export const actionCreateFilter = (value: number) => {
+    return {type: "EDITFILTER", payload: value};
 }

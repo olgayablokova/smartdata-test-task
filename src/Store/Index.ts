@@ -4,14 +4,14 @@ import {applyMiddleware, combineReducers} from "redux";
 import thunk from 'redux-thunk';
 import {Reducer as ReducerAuthor} from "../Authors/Store/Reducer";
 import {Reducer as ReducerBooks} from "../Books/Store/Reducer";
-import {EditFavorite} from "../Favorites/Reducer";
+import {FaReducer} from "../Favorites/Reducer";
 import {FilterReducer} from "../Filter/Reducer";
 
 export const RootReducer = combineReducers ({
     RegReducer,
     authors: ReducerAuthor,
     books: ReducerBooks,
-    favorites: EditFavorite,
+    favorites: FaReducer,
     filter: FilterReducer
 });
 

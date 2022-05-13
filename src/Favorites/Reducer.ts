@@ -16,7 +16,7 @@ interface IState {
     status: boolean
 }
 
-export const Reducer = (state= DEFAULT_STATE, action: IAction): IState => {
+export const FaReducer = (state= DEFAULT_STATE, action: IAction): IState => {
     switch (action.type) {
         case 'EDIT': return {status: action.payload};
         default: return state;
@@ -37,6 +37,6 @@ export const EditFavorite = (id: number, value: boolean) => {
         const url = `https://mobile.fakebook.press/api/books/${id}/${edit}`;
         await fetch(url, options)
             .then(data=>data.json())
-            .then(data=>dispatch({type: 'EDIT', payload: data}));
+            .then(()=>dispatch({type: 'EDIT', payload: value}));
     }
 }

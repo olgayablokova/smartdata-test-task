@@ -1,10 +1,10 @@
-const STATE_DEFAULT: IState = {
+const STATE_DEFAULT: IStateAuthors = {
     loading: false,
     error: false,
     fetch: []
 }
 
-interface IState {
+interface IStateAuthors {
     loading: boolean,
     error: null | boolean,
     fetch: [] | object[]
@@ -13,24 +13,24 @@ interface IState {
 export type IAction = ILoading | IError | IFetch;
 
 interface ILoading {
-    type: ActionType.LOADING;
+    type: ActionTypeAuthors.LOADINGA;
     payload: boolean;
 }
 
 interface IFetch {
-    type: ActionType.FETCH;
+    type: ActionTypeAuthors.FETCHA;
     payload: [] | object[]
 }
 
 interface IError {
-    type: ActionType.ERROR;
+    type: ActionTypeAuthors.ERRORA;
     payload: boolean;
 }
 
-export enum ActionType {
-    FETCH = 'FETCH',
-    ERROR = 'ERROR',
-    LOADING = 'LOADING'
+export enum ActionTypeAuthors {
+    FETCHA = 'FETCHA',
+    ERRORA = 'ERRORA',
+    LOADINGA = 'LOADINGA'
 }
 
 export interface IRecord {
@@ -41,12 +41,12 @@ export interface IRecord {
     image: string;
 }
 
-export const Reducer = (state = STATE_DEFAULT, action: IAction): IState => {
+export const Reducer = (state = STATE_DEFAULT, action: IAction): IStateAuthors => {
     switch(action.type) {
-        case ActionType.FETCH: return {...state, loading: false, fetch: Array.isArray(action.payload) ?
+        case ActionTypeAuthors.FETCHA: return {...state, loading: false, fetch: Array.isArray(action.payload) ?
                 [...state.fetch, ...action.payload] : [...state.fetch, action.payload]};
-        case ActionType.LOADING: return {...state, loading: action.payload};
-        case ActionType.ERROR: return {...state, error: true, loading: false};
+        case ActionTypeAuthors.LOADINGA: return {...state, loading: action.payload};
+        case ActionTypeAuthors.ERRORA: return {...state, error: true, loading: false};
         default: return state;
     }
 }

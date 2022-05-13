@@ -13,20 +13,16 @@ export default function App() {
     const dispatch = useDispatch();
 
     useEffect(()=> {
-        AuthorData({
+        const opts = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             }
-        }, dispatch);
-        BooksData({
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }, dispatch);
+        };
+
+        AuthorData(opts, dispatch);
+        BooksData(opts, dispatch);
     }, []);
   return (
     <div>

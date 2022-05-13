@@ -1,19 +1,20 @@
-import {ActionType, IAction, IUserInfo} from "./Reducer";
+import {ActionTypeBook, IAction, IUserInfo} from "./Reducer";
 import {Dispatch} from "redux";
 import {TOKEN} from "../../Utils";
 
 export const fetchData = async(requestOptions: object, dispatch: Dispatch<IAction>, newUrl?: string) => {
-    dispatch({type: ActionType.LOADING, payload: true});
+    dispatch({type: ActionTypeBook.LOADINGB, payload: true});
 
     const url = !newUrl ? 'https://mobile.fakebook.press/api/books' : newUrl;
+    const actionType = !newUrl ? ActionTypeBook.FETCHB: ActionTypeBook.FETCHFILTER;
 
     const data = await fetch(url, requestOptions);
     data.ok ?
         await data.json().then(data => {
-            dispatch({type: ActionType.LOADING, payload: false});
-            return dispatch({type: ActionType.FETCH, payload: data.data});
+            dispatch({type: ActionTypeBook.LOADINGB, payload: false});
+            return dispatch({type: actionType, payload: data.data});
         }) :
-        dispatch({type: ActionType.ERROR, payload: true});
+        dispatch({type: ActionTypeBook.ERRORB, payload: true});
 };
 
 export const addBook = (userInfo: IUserInfo) => {

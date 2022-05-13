@@ -1,6 +1,6 @@
 import React from 'react';
 import {CreateBook} from './CreateBook';
-import {List as ListAll} from './LiastAll';
+import {ListBooks} from './ListBooks';
 import {Filter} from "../Filter/Filter";
 
 export const List = () => {
@@ -9,7 +9,7 @@ export const List = () => {
         <>
             <CreateBook/>
             <Filter/>
-            <ListAll/>
+            <ListBooks/>
         </>
     );
 }
