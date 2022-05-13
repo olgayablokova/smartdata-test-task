@@ -3,12 +3,12 @@ const DEFAULT_STATE:IState = {
 }
 
 interface IState {
-    author_id: number | null
+    author_id: string | null
 }
 
 interface IAction {
     type: 'EDITFILTER',
-    payload: number
+    payload: string
 }
 
 export const FilterReducer = (state = DEFAULT_STATE, action: IAction): IState => {
@@ -18,6 +18,6 @@ export const FilterReducer = (state = DEFAULT_STATE, action: IAction): IState =>
     }
 }
 
-export const actionCreateFilter = (value: number) => {
+export const actionCreateFilter = (value: string) => {
     return {type: "EDITFILTER", payload: value};
 }

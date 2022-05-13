@@ -1,14 +1,23 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import {useTypedSelector} from "../Utils";
 import {BookTemplate} from './BookTemplate';
-import {EditFavorite} from "../Favorites/Reducer";
-import {useDispatch} from "react-redux";
+
+export const loadJSON = (value: number) => {
+    const key = value.toString();
+    return key && JSON.parse(localStorage.getItem(key))
+};
+export const saveJSON = (value: number, data: object) => {
+    const key = value.toString();
+    localStorage.setItem(key, JSON.stringify(data))
+};
 
 export const ListBooks = () => {
     const {fetch: books, loading, error} = useTypedSelector(state => state.books);
     const Book = memo(BookTemplate);
-    const {status} = useTypedSelector(state => state.favorites);
-    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return localStorage.clear()
+    }, []);
 
     if (loading) {
         return <div>loading</div>;
@@ -27,9 +36,7 @@ export const ListBooks = () => {
             <div>
                 {books.map(el => {
                     return <Book key={el.id}
-                                 book={el}
-                                 status={status}
-                                 onSelect={() => dispatch(EditFavorite(el.id, !status))}/>
+                                 book={el}/>
                 })}
             </div>
         </>

@@ -1,4 +1,3 @@
-import {SelectAuthor} from "../Books/CreateBook";
 import {useTypedSelector} from "../Utils";
 import {useDispatch} from "react-redux";
 import {getAuthorBooks} from "../Books/Store/Utils";
@@ -13,10 +12,11 @@ export const Filter = () => {
 
     return (
         <>
-            <select onChange={(e) => {
-                    dispatch(actionCreateFilter(Number(e.target.value)))
+            <select value="all"
+                onChange={(e) => {
+                    dispatch(actionCreateFilter(e.target .value))
             }}>
-                <option value="all" selected>Все</option>
+                <option value="all">Все</option>
                 {fetch && fetch.map(el => {
                         return <option value={el.id}>{el.name}</option>
                     }

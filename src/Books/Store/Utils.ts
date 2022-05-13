@@ -32,7 +32,7 @@ export const addBook = (userInfo: IUserInfo) => {
     }
 }
 
-export function getAuthorBooks (id: number): (dispatch: Dispatch<IAction>) => Promise<void>  {
+export function getAuthorBooks (id: number | string): (dispatch: Dispatch<IAction>) => Promise<void>  {
     return async (dispatch: Dispatch<IAction>) => {
         const requestOptions = {
             method: 'GET',
@@ -41,7 +41,11 @@ export function getAuthorBooks (id: number): (dispatch: Dispatch<IAction>) => Pr
                 'Accept': 'application/json'
             }
         };
-        const url = `https://mobile.fakebook.press/api/authors/${id}/books`;
-        await fetchData(requestOptions, dispatch, url);
+        if (typeof id === 'string' && id === 'all') {
+            await fetchData(requestOptions, dispatch);
+        } else {
+            const url = `https://mobile.fakebook.press/api/authors/${id}/books`;
+            await fetchData(requestOptions, dispatch, url);
+        }
     }
 }
