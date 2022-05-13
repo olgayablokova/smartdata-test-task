@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import React from "react";
+import {useDispatch} from "react-redux";
 import {ActionType} from "../Store/RegReducer";
-import {RootState} from "../Store";
 import {submitForm} from "../Store/AsyncData";
-
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
-
+import {useTypedSelector} from "../Utils";
 
 export function Registration() {
     const {name, password, password_confirmation, email} =

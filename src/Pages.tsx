@@ -9,7 +9,7 @@ export function Home() {
             <nav className="Page__nav">
                 <Link to="authorization">Авторизация</Link>
                 <Link to="registration">Регистрация</Link>
-                <Link to="list">Список авторов</Link>
+                <Link to="authors">Список авторов</Link>
                 <Link to="books">Список книг</Link>
             </nav>
         </>

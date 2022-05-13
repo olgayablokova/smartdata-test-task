@@ -1,0 +1,4 @@
+.CreateAuthor {
+    display: flex;
+    flex-direction: column;
+}

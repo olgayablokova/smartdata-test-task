@@ -2,10 +2,12 @@ import {ActionType, IAction, IUserInfo} from "./Reducer";
 import {Dispatch} from "redux";
 import {TOKEN} from "../../Utils";
 
-export const fetchData = async(requestOptions: object, dispatch: Dispatch<IAction>) => {
+export const fetchData = async(requestOptions: object, dispatch: Dispatch<IAction>, newUrl?: string) => {
     dispatch({type: ActionType.LOADING, payload: true});
-    const data = await fetch('https://mobile.fakebook.press/api/books',
-        requestOptions);
+
+    const url = !newUrl ? 'https://mobile.fakebook.press/api/books' : newUrl;
+
+    const data = await fetch(url, requestOptions);
     data.ok ?
         await data.json().then(data => {
             dispatch({type: ActionType.LOADING, payload: false});
@@ -25,6 +27,20 @@ export const addBook = (userInfo: IUserInfo) => {
             },
             body: JSON.stringify(userInfo)
         };
-        fetchData(requestOptions, dispatch);
+        await fetchData(requestOptions, dispatch);
+    }
+}
+
+export function getAuthorBooks (id: number): (dispatch: Dispatch<IAction>) => Promise<void>  {
+    return async (dispatch: Dispatch<IAction>) => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        };
+        const url = `https://mobile.fakebook.press/api/authors/${id}/books`;
+        await fetchData(requestOptions, dispatch, url);
     }
 }

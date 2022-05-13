@@ -1,19 +1,15 @@
 import React, {memo, useState} from "react";
 import {addBook} from './Store/Utils';
 import {useDispatch} from "react-redux";
-import {useTypedSelector} from "../Template/Registration";
+import {useTypedSelector} from "../Utils";
 
-interface IUseInput<T> {
-    state: T;
-    onChange: unknown;
-}
-
-const selectAuthor = (authors, userInfo) => {
+export const SelectAuthor = (userInfo: object) => {
+    const {fetch} = useTypedSelector(state => state.authors);
     return (
         <select onChange={(e) => {
             userInfo.author_id = Number(e.target.value)
         }}>
-            {authors && authors.map(el => {
+            {fetch && fetch.map(el => {
                     return <option value={el.author_id}>{el.name}</option>
                 }
             )}
@@ -21,7 +17,7 @@ const selectAuthor = (authors, userInfo) => {
     );
 }
 
-export function useInput<Type> (value: Type): any  {
+export function useInput (value: string): object  {
     const [state, setState] = useState(value);
 
     const onChange = (e) => {
@@ -39,14 +35,14 @@ export const CreateBook = () => {
     const desc = useInput('');
     const publicationDate = useInput('');
     const dispatch = useDispatch();
-    const {authors} = useTypedSelector(state => state.authors);
+
     let userInfo = {
         name: name.state,
         author_id: 9,
         desc: desc.state,
         publication_date: publicationDate.state
     };
-    const Select = memo(selectAuthor);
+    const Select = memo(SelectAuthor);
 
     return (
         <>
@@ -55,12 +51,7 @@ export const CreateBook = () => {
                        value={name.state}
                        placeholder="Название книги"
                        onChange={(e) => name.onChange(e)}/>
-                <select>
-                    {authors && authors.map(el => {
-                            return <option value={el.author_id}>{el.name}</option>
-                        }
-                    )}
-                </select>
+                <Select userInfo={userInfo}/>
                 <input type="text"
                        value={desc.state}
                        placeholder="Описание"
@@ -71,6 +62,9 @@ export const CreateBook = () => {
                        onChange={(e) => publicationDate.onChange(e)}/>
                 <button onClick={(e) => {
                     dispatch(addBook(userInfo));
+                    name.onChange('');
+                    desc.onChange('');
+                    publicationDate.onChange('');
                 }}>Добавить книгу</button>
             </div>
         </>

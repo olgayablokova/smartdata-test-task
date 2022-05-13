@@ -4,13 +4,15 @@ import {applyMiddleware, combineReducers} from "redux";
 import thunk from 'redux-thunk';
 import {Reducer as ReducerAuthor} from "../Authors/Store/Reducer";
 import {Reducer as ReducerBooks} from "../Books/Store/Reducer";
+import {EditFavorite} from "../Favorites/Reducer";
+import {FilterReducer} from "../Filter/Reducer";
 
-const reducer = combineReducers ({
+export const RootReducer = combineReducers ({
     RegReducer,
     authors: ReducerAuthor,
-    books: ReducerBooks
+    books: ReducerBooks,
+    favorites: EditFavorite,
+    filter: FilterReducer
 });
 
-export type RootState = ReturnType<typeof reducer>;
-
-export const store = createStore(reducer, applyMiddleware(thunk));
+export const store = createStore(RootReducer, applyMiddleware(thunk));
