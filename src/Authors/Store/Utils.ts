@@ -1,6 +1,6 @@
 import {ActionTypeAuthors, IAction} from "./Reducer";
 import {Dispatch} from "redux";
-import {TOKEN} from "../../Utils";
+import {useTypedSelector} from "../../Utils";
 
 interface IUserInfo {
     name: string;
@@ -23,12 +23,13 @@ export const fetchData = async (requestOptions: object, dispatch: Dispatch<IActi
 
 export const addAuthor = (userInfo: IUserInfo) => {
     return async (dispatch: Dispatch<IAction>) => {
+        const {token} = useTypedSelector(state => state.user);
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${TOKEN}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(userInfo)
         };

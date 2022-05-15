@@ -1,6 +1,6 @@
 import {ActionTypeBook, IAction, IUserInfo} from "./Reducer";
 import {Dispatch} from "redux";
-import {TOKEN} from "../../Utils";
+import {useTypedSelector} from "../../Utils";
 
 export const fetchData = async(requestOptions: object, dispatch: Dispatch<IAction>, newUrl?: string) => {
     dispatch({type: ActionTypeBook.LOADINGB, payload: true});
@@ -19,12 +19,13 @@ export const fetchData = async(requestOptions: object, dispatch: Dispatch<IActio
 
 export const addBook = (userInfo: IUserInfo) => {
     return async (dispatch: Dispatch<IAction>) => {
+        const {token} = useTypedSelector(state => state.user);
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${TOKEN}`
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(userInfo)
         };

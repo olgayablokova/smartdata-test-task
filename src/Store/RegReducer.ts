@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface IState {
     userId: null | number;
     error: null | string[];

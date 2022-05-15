@@ -1,42 +1,49 @@
 import {Dispatch} from "redux";
-import {TOKEN} from "../Utils";
 
 const DEFAULT_STATE: IState = {
-    status: false
+    status: false,
+    favBooksUser: null
 }
 
-type IAction = IEDIT;
+type IAction = IEDIT | FETCH_FAV;
 
 interface IEDIT {
     type: 'EDIT',
     payload: boolean
 }
 
+interface FETCH_FAV {
+    type: 'FETCH_FAV',
+    payload: number[] | null
+}
+
 interface IState {
-    status: boolean
+    status: boolean;
+    favBooksUser: number[] | null
+
 }
 
 export const FaReducer = (state= DEFAULT_STATE, action: IAction): IState => {
     switch (action.type) {
-        case 'EDIT': return {status: action.payload};
+        case 'EDIT': return {...state, status: action.payload};
+        case 'FETCH_FAV': return {...state, favBooksUser: action.payload}
         default: return state;
     }
 }
 
-export const EditFavorite = (id: number, value: boolean) => {
+export const EditFavorite = (id: number, value: boolean, token: string) => {
     return async (dispatch: Dispatch<IAction>) => {
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${TOKEN}`
+                'Authorization': `Bearer ${token}`
             }
         };
         const edit = value ? 'add-to-favorites' : 'remove-from-favorites';
         const url = `https://mobile.fakebook.press/api/books/${id}/${edit}`;
         await fetch(url, options)
-            .then(data=>data.json())
-            .then(()=>dispatch({type: 'EDIT', payload: value}));
+            .then(() => dispatch({type: 'EDIT', payload: value}));
     }
 }
