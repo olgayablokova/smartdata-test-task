@@ -19,7 +19,7 @@ export const Navbar = () => {
         }
         await fetch('https://mobile.fakebook.press/api/logout', opts)
             .then(data=> data.json())
-            .then(() => dispatch({type: 'FETCH_FAV', payload: ''}));
+            .then(() => dispatch({type: 'FETCH_AUTH', payload: ''}));
     }
 
     return (
