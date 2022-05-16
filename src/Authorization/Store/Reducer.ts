@@ -1,10 +1,11 @@
-const DEFAULT_STATE: IAuthorizationState = {
-    token: '',
-
+interface IErrorValidate {
+    login: string[];
+    email: string[];
 }
 
 interface IAuthorizationState {
-    token: string
+    token: string;
+    error: IErrorValidate | null;
 }
 
 interface IFetchAuth {
@@ -12,15 +13,24 @@ interface IFetchAuth {
     payload: string
 }
 
-export const AuthorizationReducer = (
-    state = DEFAULT_STATE,
-    action: IFetchAuth): IAuthorizationState => {
-    switch (action.type) {
-        case 'FETCH_AUTH': return {token: action.payload};
-        default: return state;
-    }
+interface IErrorAuth {
+    type: 'ERROR_AUTH',
+    payload: IErrorValidate | null
 }
 
-export const actionCreatorAuth = (value: string) => {
-    return {type: 'FETCH_AUTH', payload: value}
+export type ActionAuthType = IFetchAuth | IErrorAuth;
+
+const DEFAULT_STATE: IAuthorizationState = {
+    token: '',
+    error: null
+}
+
+export const AuthorizationReducer = (
+    state = DEFAULT_STATE,
+    action: ActionAuthType): IAuthorizationState => {
+    switch (action.type) {
+        case 'FETCH_AUTH': return {...state, token: action.payload};
+        case 'ERROR_AUTH': return {...state, error: action.payload};
+        default: return state;
+    }
 }

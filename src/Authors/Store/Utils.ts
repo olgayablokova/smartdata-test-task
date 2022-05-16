@@ -1,6 +1,5 @@
 import {ActionTypeAuthors, IAction} from "./Reducer";
 import {Dispatch} from "redux";
-import {useTypedSelector} from "../../Utils";
 
 interface IUserInfo {
     name: string;
@@ -21,9 +20,8 @@ export const fetchData = async (requestOptions: object, dispatch: Dispatch<IActi
         }) : dispatch({type: ActionTypeAuthors.ERRORA, payload: true});
 }
 
-export const addAuthor = (userInfo: IUserInfo) => {
+export const addAuthor = (userInfo: IUserInfo, token: string) => {
     return async (dispatch: Dispatch<IAction>) => {
-        const {token} = useTypedSelector(state => state.user);
         const requestOptions = {
             method: 'POST',
             headers: {

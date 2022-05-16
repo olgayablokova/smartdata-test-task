@@ -1,22 +1,25 @@
-.CreateAuthor__list {
+.Book__El {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    background: darkgray;
+    width: 50%;
 }
-.CreateAuthor__el {
-    margin: 10px 0;
-}
-.Author__List {
+.Books__List {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 10px;
 }
-.Author__ElText {
+.Books__ElText {
     font-family: system-ui;
     font-size: medium;
 }
-.Author__el {
+.Book__add {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.Book__el {
     margin: 10px 0;
 }

@@ -1,16 +1,18 @@
-interface IStateReg {
-    loading: boolean,
-    error: boolean,
-    fetch: {}
+interface IErrorValidate {
+    email: string[];
+    password: string[];
+    name: string[];
 }
 
-interface IUser {
-
+interface IStateReg {
+    loading: boolean,
+    error: IErrorValidate | null,
+    fetch: {}
 }
 
 const defaultState: IStateReg = {
     loading: false,
-    error: false,
+    error: null,
     fetch: {}
 }
 
@@ -22,7 +24,7 @@ export enum ActionTypeReg {
 
 interface IERROR_REG {
     type: ActionTypeReg.ERROR_REG,
-    payload: boolean
+    payload: IErrorValidate | null
 }
 
 interface IFETCH_REG {
@@ -40,7 +42,7 @@ export type IActionReg = IERROR_REG | IFETCH_REG | ILOADING_REG;
 export const RegReducer = (state = defaultState, action: IActionReg): IStateReg => {
     switch (action.type) {
         case ActionTypeReg.ERROR_REG:
-            return {...state, error: true};
+            return {...state, error: action.payload};
         case ActionTypeReg.FETCH_REG:
             return {...state, loading: false, fetch: action.payload};
         case ActionTypeReg.LOADING_REG:

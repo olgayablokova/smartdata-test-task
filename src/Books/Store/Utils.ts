@@ -2,6 +2,11 @@ import {ActionTypeBook, IAction, IUserInfo} from "./Reducer";
 import {Dispatch} from "redux";
 import {useTypedSelector} from "../../Utils";
 
+interface IUpdateBook {
+    id: number;
+    body: object;
+}
+
 export const fetchData = async(requestOptions: object, dispatch: Dispatch<IAction>, newUrl?: string) => {
     dispatch({type: ActionTypeBook.LOADINGB, payload: true});
 
@@ -17,9 +22,8 @@ export const fetchData = async(requestOptions: object, dispatch: Dispatch<IActio
         dispatch({type: ActionTypeBook.ERRORB, payload: true});
 };
 
-export const addBook = (userInfo: IUserInfo) => {
+export const addBook = (userInfo: IUserInfo, token: string) => {
     return async (dispatch: Dispatch<IAction>) => {
-        const {token} = useTypedSelector(state => state.user);
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -48,5 +52,37 @@ export function getAuthorBooks (id: number | string): (dispatch: Dispatch<IActio
             const url = `https://mobile.fakebook.press/api/authors/${id}/books`;
             await fetchData(requestOptions, dispatch, url);
         }
+    }
+}
+
+export const deleteBook = (id: number, token: string) => {
+    return async (dispatch: Dispatch<IAction>) => {
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        };
+        const url = `https://mobile.fakebook.press/api/books/${id}`
+        await fetchData(requestOptions, dispatch, url);
+    }
+}
+
+export const updateBook = ({id, body}: IUpdateBook, token: string) => {
+    return async (dispatch: Dispatch<IAction>) => {
+        const requestOptions = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                body: JSON.stringify({body})
+            },
+
+        };
+        const url = `https://mobile.fakebook.press/api/books/${id}`
+        await fetchData(requestOptions, dispatch, url);
     }
 }

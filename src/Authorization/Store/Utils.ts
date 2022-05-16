@@ -1,13 +1,22 @@
-import {actionCreatorAuth} from "./Reducer";
+import {ActionAuthType} from "./Reducer";
+import {Dispatch} from "redux";
+import {FormEvent} from "react";
+import {IActionFav} from '../../Favorites/Reducer';
 
-export const submit = async (e, dispatch) => {
+interface IPostFormDataJson {
+    fromData: FormData;
+    dispatch: Dispatch<ActionAuthType | IActionFav>
+}
+
+export const submit = async (e: FormEvent<HTMLFormElement>,
+                             dispatch: Dispatch<ActionAuthType>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fromData = new FormData(form);
     await postFormDataJson({fromData, dispatch});
 }
 
-const postFormDataJson = async({fromData, dispatch}) => {
+const postFormDataJson = async({fromData, dispatch}:IPostFormDataJson) => {
     const plainFormData = Object.fromEntries(fromData.entries());
     const opts = {
         method: 'POST',
@@ -22,14 +31,18 @@ const postFormDataJson = async({fromData, dispatch}) => {
     if (data.ok) {
         data.json()
             .then(data => {
-                dispatch(actionCreatorAuth(data.data.token));
+                dispatch({type: 'FETCH_AUTH', payload: data.data.token});
                 favUserBooks(data.data.token, dispatch);
             });
+    } else {
+        data.json()
+            .then(data => {
+                dispatch({type: 'ERROR_AUTH', payload: data});
+            });
     }
-    //TODO обработать ошибку авторизации
 }
 
-const favUserBooks = async (token: string, dispatch) => {
+const favUserBooks = async (token: string, dispatch: Dispatch<IActionFav>) => {
     const opts = {
         method: 'GET',
         headers: {
@@ -42,7 +55,7 @@ const favUserBooks = async (token: string, dispatch) => {
         opts)
         .then(data => data.json())
         .then(data => {
-           const books = data.data.reduce((acc, el) => {
+           const books = data.data.reduce((acc: number[], el: {id: number}) => {
                 acc.push(el.id);
                 return acc;
             },[]);

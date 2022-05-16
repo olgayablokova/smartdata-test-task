@@ -1,6 +1,7 @@
 import React, {memo, useEffect} from 'react';
 import {useTypedSelector} from "../Utils";
 import {BookTemplate} from './BookTemplate';
+import './Books.css';
 
 export const ListBooks = () => {
     const {fetch: books, loading, error} = useTypedSelector(state => state.books);
@@ -22,12 +23,13 @@ export const ListBooks = () => {
 
     return (
         <>
-            <div>
+            <div className="Books__List">
                 {books.map(el => {
                     return <Book key={el.id}
                                  book={el}
                                  token={token}
-                                 favBooksUser={favBooksUser}/>
+                                 favBooksUser={favBooksUser}
+                    />
                 })}
             </div>
         </>

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Icon} from '../Favorites/Icon';
 import {EditFavorite} from "../Favorites/Reducer";
 import {useDispatch} from "react-redux";
+import './Books.css';
 
 /*
    Шаблон книги из списка книг
@@ -13,11 +14,15 @@ export const BookTemplate = ({book, token, favBooksUser}) => {
     const dispatch = useDispatch();
 
     return (
-        <div>
-            <div>Название: {book.name}</div>
-            <div>Описание: {book.desc}</div>
+        <div className="Book__El">
+            <div className="Books__ElText">
+                <div>Название: {book.name}</div>
+                <div>Описание: {book.desc}</div>
+            </div>
             <div>
-                <img src={book.image || './Img/empty.jpg'} width="50" height="50"/>
+                <img src={book.image || './Img/empty.png'}
+                     width="50"
+                     height="50"/>
             </div>
             {token &&
                 <Icon key={book.id}

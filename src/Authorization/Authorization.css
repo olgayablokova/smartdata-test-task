@@ -1,0 +1,21 @@
+.Authorization__validate {
+    margin: 5px
+}
+.Authorization__form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    align-items: center;
+}
+.Authorization {
+    width: 100%
+}
+.Authorization__AddBtn {
+    border-radius: 1px;
+    border-color: azure;
+}
+.Authorization__inside {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}

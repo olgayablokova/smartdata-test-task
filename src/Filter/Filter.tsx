@@ -12,15 +12,16 @@ export const Filter = () => {
 
     return (
         <>
-            <select value="all"
+            <select
                 onChange={(e) => {
                     dispatch(actionCreateFilter(e.target .value))
             }}>
-                <option value="all">Все</option>
+                <option>Выберите автора</option>
                 {fetch && fetch.map(el => {
                         return <option value={el.id}>{el.name}</option>
                     }
                 )}
+                <option value="all">Все</option>
             </select>
             <button onClick={() => {
                 dispatch(getAuthorBooks(author_id));

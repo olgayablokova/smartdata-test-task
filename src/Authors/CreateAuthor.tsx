@@ -1,47 +1,59 @@
-import React, {useState} from "react";
+import React from "react";
 import {addAuthor} from "./Store/Utils";
 import {useDispatch} from "react-redux";
 import './Authors.css';
+import {useTypedSelector} from "../Utils";
+import {createAuthorAction} from "./Store/CreateAuthorReducer";
+import './Authors.css';
 
-export const useInputT = (value: string) => {
-    const [state, setState] = useState(value);
-
-    const onChange = (e) => {
-        setState(e.target.value);
-    }
-
-    return {
-        state,
-        onChange
-    }
+interface IProps {
+    token: string;
 }
 
-export const CreateAuthor = () => {
-    const name = useInputT('');
-    const bio = useInputT('');
-    const birthDate = useInputT('');
+export const CreateAuthor = ({token}: IProps) => {
+    const {name, bio, birth_date} = useTypedSelector(state => state.createAuthor);
     const dispatch = useDispatch();
     const userInfo = {
-        name: name.state,
-        bio: bio.state,
-        birth_date: birthDate.state
+        name,
+        bio,
+        birth_date
     };
 
     return (
-        <div className="CreateAuthor">
+        <form className="CreateAuthor__list"
+              onSubmit={(e) => {
+                  e.preventDefault();
+                  dispatch(addAuthor(userInfo, token));
+                  dispatch(createAuthorAction({
+                      name: '',
+                      bio: '',
+                      birth_date: ''
+                  }));}}>
             <input type="text"
                    placeholder="ФИО автора"
-                   value={name.state}
-                   onChange={(e) => name.onChange(e)}/>
+                   value={name}
+                   className="CreateAuthor__el"
+                   onChange={(e) =>
+                       dispatch(createAuthorAction({name: e.target.value
+                   }))}
+                   required/>
             <input type="text"
-                   placeholder="Биографи"
-                   value={bio.state}
-                   onChange={(e) => bio.onChange(e)}/>
-            <input type="text"
-                   placeholder="Дата рождения"
-                   value={birthDate.state}
-                   onChange={(e) => birthDate.onChange(e)}/>
-            <button onClick={() => {dispatch(addAuthor(userInfo))}}>Добавить автора</button>
-        </div>
+                   placeholder="Биография"
+                   value={bio}
+                   className="CreateAuthor__el"
+                   required
+                   onChange={(e) =>
+                       dispatch(createAuthorAction({bio: e.target.value
+                   }))}/>
+            <div className="CreateAuthor__el">
+                <label>Дата рождения:</label>
+                <input type="date"
+                       required
+                       onChange={(e) =>
+                           dispatch(createAuthorAction({birth_date: e.target.value
+                       }))}/>
+            </div>
+            <button type='submit'>Добавить автора</button>
+        </form>
     );
 }

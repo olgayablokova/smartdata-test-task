@@ -1,4 +1,19 @@
 .Page__nav {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    background: beige;
+    justify-content: space-around;
+}
+.Page__navEl {
+    font-family: system-ui;
+    font-size: large;
+}
+.Page__textNav {
+    text-decoration: none;
+}
+.Page__btnExit {
+    border: none;
+    display: flex;
+    height: 100%;
+    align-items: center;
 }

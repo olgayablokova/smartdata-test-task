@@ -8,6 +8,7 @@ import {FaReducer} from "../Favorites/Reducer";
 import {FilterReducer} from "../Filter/Reducer";
 import {CreateBookReducer} from "../Books/Store/CreateBookReducer";
 import {AuthorizationReducer} from "../Authorization/Store/Reducer";
+import {CreateAuthorReducer} from "../Authors/Store/CreateAuthorReducer";
 
 export const RootReducer = combineReducers ({
     RegReducer,
@@ -16,6 +17,7 @@ export const RootReducer = combineReducers ({
     favorites: FaReducer,
     filter: FilterReducer,
     createBook: CreateBookReducer,
+    createAuthor: CreateAuthorReducer,
     user: AuthorizationReducer
 });
 

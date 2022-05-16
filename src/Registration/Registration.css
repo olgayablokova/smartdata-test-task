@@ -1,0 +1,14 @@
+.Registration__from {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Registration {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.Registration__input {
+    margin: 10px 0;
+}

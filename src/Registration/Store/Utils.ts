@@ -26,7 +26,10 @@ export const submitForm = (userInfo: IUserInfo) => {
                     dispatch({type: ActionTypeReg.FETCH_REG, payload: data.data});
                 });
         } else {
-            dispatch({type: ActionTypeReg.ERROR_REG, payload: true});
+            data.json()
+                .then(data => {
+            dispatch({type: ActionTypeReg.ERROR_REG, payload: data});
+                });
         }
     }
 };

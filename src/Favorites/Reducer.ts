@@ -5,7 +5,7 @@ const DEFAULT_STATE: IState = {
     favBooksUser: null
 }
 
-type IAction = IEDIT | FETCH_FAV;
+export type IActionFav = IEDIT | FETCH_FAV;
 
 interface IEDIT {
     type: 'EDIT',
@@ -23,7 +23,7 @@ interface IState {
 
 }
 
-export const FaReducer = (state= DEFAULT_STATE, action: IAction): IState => {
+export const FaReducer = (state= DEFAULT_STATE, action: IActionFav): IState => {
     switch (action.type) {
         case 'EDIT': return {...state, status: action.payload};
         case 'FETCH_FAV': return {...state, favBooksUser: action.payload}
@@ -32,7 +32,7 @@ export const FaReducer = (state= DEFAULT_STATE, action: IAction): IState => {
 }
 
 export const EditFavorite = (id: number, value: boolean, token: string) => {
-    return async (dispatch: Dispatch<IAction>) => {
+    return async (dispatch: Dispatch<IActionFav>) => {
         const options = {
             method: 'POST',
             headers: {
