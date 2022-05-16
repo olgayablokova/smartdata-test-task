@@ -3,12 +3,19 @@ import {Icon} from '../Favorites/Icon';
 import {EditFavorite} from "../Favorites/Reducer";
 import {useDispatch} from "react-redux";
 import './Books.css';
+import {IRecord} from './Store/Reducer';
 
 /*
    Шаблон книги из списка книг
  */
 
-export const BookTemplate = ({book, token, favBooksUser}) => {
+interface IProps {
+    book: IRecord,
+    token: string,
+    favBooksUser?: number[] | null
+}
+
+export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
     const defaultState = favBooksUser?.includes(book.id);
     const [state, setState] = useState(defaultState);
     const dispatch = useDispatch();
@@ -30,8 +37,8 @@ export const BookTemplate = ({book, token, favBooksUser}) => {
                       onSelect={() => {
                           setState(!state);
                           dispatch(EditFavorite(book.id, !state, token));
-                          const payload = !state ? favBooksUser.concat([book.id]) :
-                              favBooksUser.filter(el=> el !== book.id);
+                          const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
+                              favBooksUser && favBooksUser.filter(el=> el !== book.id);
                           dispatch({type: 'FETCH_FAV', payload});
                       }}/>
             }

@@ -3,10 +3,17 @@ import React from "react";
 import {useInput} from "../Utils";
 import {useDispatch} from "react-redux";
 import {updateBook} from "./Store/Utils";
+import {IRecord} from "./Store/Reducer";
+
+interface IProps {
+    book: IRecord,
+    token: string,
+    onCansel: React.MouseEventHandler<SVGElement>
+}
 
 export const EditTemplate = ({book,
                               token,
-                              onCansel = f => f}) => {
+                              onCansel = (f: unknown) => f}: IProps) => {
     const {state: name, onChange: nameChange} = useInput(book.name);
     const {state: desc, onChange: descChange} = useInput(book.desc);
     const dispatch = useDispatch();

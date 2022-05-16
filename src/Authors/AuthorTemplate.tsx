@@ -16,7 +16,7 @@ interface IProps {
 
 export const AuthorTemplate = ({author}: IProps) => {
     return (
-        <div className="Author__El">
+        <div className="Author__el">
             <div className="Author__ElText">
                 <div>{author.name}</div>
                 <div>{author.birth_date}</div>

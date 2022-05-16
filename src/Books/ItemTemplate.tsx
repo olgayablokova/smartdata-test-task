@@ -3,16 +3,23 @@ import {Icon} from '../Favorites/Icon';
 import {EditFavorite} from "../Favorites/Reducer";
 import {useDispatch} from "react-redux";
 import {ItemAction} from "../ItemAction/ItemAction";
+import {IRecord} from "./Store/Reducer";
 
 /*
    Шаблон книги из списка книг в режиме чтения
  */
-
+interface IProps {
+    book: IRecord,
+    token: string,
+    favBooksUser: number[] | null,
+    onEdit: React.MouseEventHandler<SVGElement>,
+    onDelete: React.MouseEventHandler<SVGElement>
+}
 export const ItemTemplate = ({book,
                               token,
                               favBooksUser,
-                              onEdit = f => f,
-                              onDelete = f => f}) => {
+                              onEdit = (f: unknown) => f,
+                              onDelete = (f: unknown) => f}: IProps) => {
     const defaultState = favBooksUser?.includes(book.id);
     const [state, setState] = useState(defaultState);
     const dispatch = useDispatch();
@@ -31,8 +38,8 @@ export const ItemTemplate = ({book,
                           onSelect={() => {
                               setState(!state);
                               dispatch(EditFavorite(book.id, !state, token));
-                              const payload = !state ? favBooksUser.concat([book.id]) :
-                                  favBooksUser.filter(el => el !== book.id);
+                              const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
+                                  favBooksUser && favBooksUser.filter(el => el !== book.id);
                               dispatch({type: 'FETCH_FAV', payload});
                           }}/>
                     <ItemAction onEdit={onEdit}

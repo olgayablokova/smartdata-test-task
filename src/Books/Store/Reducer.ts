@@ -4,10 +4,19 @@ const STATE_DEFAULT: IStateBook = {
     fetch: []
 }
 
+export interface IRecord {
+    name: string
+    author_id: number,
+    desc: string,
+    publication_date: string,
+    id: number,
+    image: string
+}
+
 interface IStateBook {
     loading: boolean,
     error: null | boolean,
-    fetch: [] | object[]
+    fetch: [] | IRecord[]
 }
 
 export type IAction = ILoading | IError | IFetch | IFetchFilter;
@@ -24,7 +33,7 @@ interface IError {
 
 interface IFetch {
     type: ActionTypeBook.FETCHB;
-    payload: object[]
+    payload: IRecord[]
 }
 
 interface IFetchFilter {

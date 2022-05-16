@@ -3,12 +3,12 @@ const DEFAULT_STATE:IState = {
 }
 
 interface IState {
-    author_id: string | null
+    author_id: number | null
 }
 
 interface IAction {
     type: 'EDITFILTER',
-    payload: string
+    payload: number
 }
 
 export const FilterReducer = (state = DEFAULT_STATE, action: IAction): IState => {

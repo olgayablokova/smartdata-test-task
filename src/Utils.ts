@@ -9,7 +9,7 @@ export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useInput = (value: string) => {
     const [state, setState] = useState(value);
 
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setState(e.target.value);
     }
 

@@ -27,7 +27,7 @@ export default function App() {
     }, []);
 
     return (
-        <BrowserRouter>
+         <BrowserRouter>
         <div className="app-wrapper">
             <Navbar/>
             <Routes>

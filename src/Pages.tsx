@@ -27,7 +27,7 @@ export const Navbar = () => {
             <div className="Page__nav justify-content-center">
                 {navItem.map(el => {
                     return <div className="Page__navEl">
-                        <Link to={el.to} className="Page__textNav">{el.name}</Link>
+                        <Link  to={el.to} className="Page__textNav">{el.name}</Link>
                     </div>
                 })}
                 {token && <div>

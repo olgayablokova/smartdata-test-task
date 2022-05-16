@@ -7,7 +7,7 @@ const STATE_DEFAULT: IStateAuthors = {
 interface IStateAuthors {
     loading: boolean,
     error: null | boolean,
-    fetch: [] | object[]
+    fetch: [] | IRecord[]
 }
 
 export type IAction = ILoading | IError | IFetch;
@@ -19,7 +19,7 @@ interface ILoading {
 
 interface IFetch {
     type: ActionTypeAuthors.FETCHA;
-    payload: [] | object[]
+    payload: [] | IRecord[]
 }
 
 interface IError {
