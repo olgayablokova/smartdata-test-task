@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {navItem, useTypedSelector} from "./Utils";
 import {useDispatch} from "react-redux";
+import {fetchData as BooksData} from "./Books/Store/Utils";
 import './Page.css';
 
 export const Navbar = () => {
@@ -9,17 +10,25 @@ export const Navbar = () => {
     const dispatch = useDispatch();
 
     async function onSubmit() {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
         const opts = {
+            method: 'GET',
+            headers
+        };
+        const optsLogout = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
+                ...headers,
                 'Authorization': `Bearer ${token}`
             }
         }
-        await fetch('https://mobile.fakebook.press/api/logout', opts)
+        await fetch('https://mobile.fakebook.press/api/logout', optsLogout)
             .then(data=> data.json())
             .then(() => dispatch({type: 'FETCH_AUTH', payload: ''}));
+        await BooksData(opts, dispatch);
     }
 
     return (
