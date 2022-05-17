@@ -18,7 +18,7 @@ export const Filter = () => {
             }}>
                 <option>Выберите автора</option>
                 {fetch && fetch.map(el => {
-                        return <option value={el.id}>{el.name}</option>
+                        return <option key={el.id} value={el.id}>{el.name}</option>
                     }
                 )}
                 <option value="all">Все</option>
