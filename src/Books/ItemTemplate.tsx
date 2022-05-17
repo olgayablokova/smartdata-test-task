@@ -37,6 +37,7 @@ export const ItemTemplate = ({book,
                           selected={state}
                           onSelect={() => {
                               setState(!state);
+                              // @ts-ignore
                               dispatch(EditFavorite(book.id, !state, token));
                               const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
                                   favBooksUser && favBooksUser.filter(el => el !== book.id);

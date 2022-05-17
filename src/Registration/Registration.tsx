@@ -31,6 +31,7 @@ export function Registration() {
             <span>Регистрация</span>
             <form onSubmit={(e) => {
                 e.preventDefault();
+                // @ts-ignore
                 dispatch(submitForm(userInfo))}
             }
             className="Registration__from">

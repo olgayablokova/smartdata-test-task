@@ -24,6 +24,7 @@ export const Filter = () => {
                 <option value="all">Все</option>
             </select>
             <button onClick={() => {
+                // @ts-ignore
                 dispatch(getAuthorBooks(author_id));
             }}>Отфильтровать</button>
         </>

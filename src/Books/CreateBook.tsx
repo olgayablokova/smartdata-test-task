@@ -20,6 +20,7 @@ export const CreateBook = ({token}: IProps) => {
                 className="Book__add"
                 onSubmit={(e) => {
                 e.preventDefault();
+                // @ts-ignore
                 dispatch(addBook({name, author_id, desc, publication_date}, token));
                 dispatch(createBookAction({
                 name: '',

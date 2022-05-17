@@ -31,7 +31,10 @@ export const EditTemplate = ({book,
         <>
             <input type="text" value={name} onChange={(e) => nameChange(e)}/>
             <input type="text" value={desc} onChange={(e) => descChange(e)}/>
-            <FaSave onClick={() => {dispatch(updateBook(params, token));}}/>
+            <FaSave onClick={() => {
+                // @ts-ignore
+                dispatch(updateBook(params, token));
+            }}/>
             <FaWindowClose onClick={onCansel}/>
         </>
     );

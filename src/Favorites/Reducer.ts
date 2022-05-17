@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
+import { AnyAction } from 'redux';
 
-const DEFAULT_STATE: IState = {
+export const DEFAULT_STATE: IState = {
     status: false,
     favBooksUser: null
 }
@@ -21,6 +22,12 @@ interface IState {
     status: boolean;
     favBooksUser: number[] | null
 
+}
+
+export interface IProps {
+    id: number;
+    value: boolean;
+    token: string;
 }
 
 export const FaReducer = (state= DEFAULT_STATE, action: IActionFav): IState => {

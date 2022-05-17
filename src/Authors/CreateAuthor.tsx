@@ -23,6 +23,7 @@ export const CreateAuthor = ({token}: IProps) => {
         <form className="CreateAuthor__list"
               onSubmit={(e) => {
                   e.preventDefault();
+                  // @ts-ignore
                   dispatch(addAuthor(userInfo, token));
                   dispatch(createAuthorAction({
                       name: '',

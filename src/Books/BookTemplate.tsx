@@ -36,6 +36,8 @@ export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
                       selected={state}
                       onSelect={() => {
                           setState(!state);
+                          //TODO здесь и в остальных местах перейти на toolkit
+                          // @ts-ignore
                           dispatch(EditFavorite(book.id, !state, token));
                           const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
                               favBooksUser && favBooksUser.filter(el=> el !== book.id);
