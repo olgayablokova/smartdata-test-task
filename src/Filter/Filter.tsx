@@ -1,10 +1,10 @@
 import React from "react";
-import authMobx from "../Authors/Store/AuthMobx";
-import booksMobx from '../Books/Store/BooksMobx';
+import {authorsMobx} from "../Store/Index";
+import {booksMobx} from '../Store/Index';
 import {observer} from "mobx-react-lite";
 
 const FilterTml = () => {
-    const fetch = authMobx.fetch;
+    const fetch = authorsMobx.fetch;
 
     return (
         <form onSubmit={(e) => {

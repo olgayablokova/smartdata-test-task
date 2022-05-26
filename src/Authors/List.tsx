@@ -3,19 +3,19 @@ import {AuthorTemplate} from './AuthorTemplate';
 import {CreateAuthor} from './CreateAuthor';
 import './Authors.css';
 
-import authMobx from "../Authorization/Store/AuthMobx";
-import AuthorsMobx from "./Store/AuthMobx";
+import {authMobx} from "../Store/Index";
+import {authorsMobx} from "../Store/Index";
 import {observer} from "mobx-react-lite";
 
 const ListTmp = () => {
     const token = authMobx.token;
     const PureTable = memo(AuthorTemplate);
 
-    if (AuthorsMobx.loading) {
+    if (authorsMobx.loading) {
         return <div>loading</div>;
     }
 
-    if (AuthorsMobx.error) {
+    if (authorsMobx.error) {
         return <div>error</div>;
     }
 
@@ -23,7 +23,7 @@ const ListTmp = () => {
         <div>
             {token && <CreateAuthor token={token}/>}
             <div className="Author__List">
-            {AuthorsMobx.fetch.map(el => {
+            {authorsMobx.fetch.map(el => {
                return <PureTable key={el.id} author={el} token={token}/>
             })}
             </div>

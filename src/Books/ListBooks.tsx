@@ -2,8 +2,8 @@ import React, {memo} from 'react';
 import {BookTemplate} from './BookTemplate';
 import './Books.css';
 
-import authMobx from "../Authorization/Store/AuthMobx";
-import booksMobx from "./Store/BooksMobx";
+import {authMobx} from "../Store/Index";
+import {booksMobx} from "../Store/Index";
 import {observer} from "mobx-react-lite";
 
 const Books = () => {

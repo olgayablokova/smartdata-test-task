@@ -1,6 +1,5 @@
 import {ActionTypeBook, IAction, IUserInfo} from "./Reducer";
 import {Dispatch} from "redux";
-import {useTypedSelector} from "../../Utils";
 
 interface IUpdateBook {
     id: number;

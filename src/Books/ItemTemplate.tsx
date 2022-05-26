@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {Icon} from '../Favorites/Icon';
 import {EditFavorite} from "../Favorites/Reducer";
-import {useDispatch} from "react-redux";
 import {ItemAction} from "../ItemAction/ItemAction";
 import {IRecord} from "./Store/Reducer";
 
@@ -22,7 +21,6 @@ export const ItemTemplate = ({book,
                               onDelete = (f: unknown) => f}: IProps) => {
     const defaultState = favBooksUser?.includes(book.id);
     const [state, setState] = useState(defaultState);
-    const dispatch = useDispatch();
 
     return (
         <div>
@@ -41,7 +39,7 @@ export const ItemTemplate = ({book,
                               dispatch(EditFavorite(book.id, !state, token));
                               const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
                                   favBooksUser && favBooksUser.filter(el => el !== book.id);
-                              dispatch({type: 'FETCH_FAV', payload});
+                              // dispatch({type: 'FETCH_FAV', payload});
                           }}/>
                     <ItemAction onEdit={onEdit}
                                 onDelete={onDelete}/>

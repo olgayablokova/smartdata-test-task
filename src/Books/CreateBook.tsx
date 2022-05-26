@@ -1,14 +1,15 @@
 import React from "react";
 import './Books.css';
-import AuthorsMobx from "../Authors/Store/AuthMobx";
-import booksMobx from './Store/BooksMobx';
+import {authorsMobx} from "../Store/Index";
+import {booksMobx} from '../Store/Index';
+import {observer} from "mobx-react-lite";
 
 interface IProps {
     token: string
 }
 
-export const CreateBook = ({token}: IProps) => {
-    const fetch = AuthorsMobx.fetch;
+const CreateBookTml = ({token}: IProps) => {
+    const fetch = authorsMobx.fetch;
 
     return (
         <>
@@ -49,3 +50,5 @@ export const CreateBook = ({token}: IProps) => {
         </>
     );
 }
+
+export const CreateBook = observer(CreateBookTml)

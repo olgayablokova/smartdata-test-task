@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react-lite';
-import authMobx from './Store/AuthMobx'
+import {authMobx} from '../Store/Index'
 import './Authorization.css';
 
 const AuthorizationTpl = () => {

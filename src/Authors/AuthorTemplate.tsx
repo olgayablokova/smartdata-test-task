@@ -1,7 +1,7 @@
 import React from "react";
 import './Authors.css';
 import {FaTrashAlt} from "react-icons/fa";
-import authorsMobx from './Store/AuthMobx';
+import {authorsMobx} from '../Store/Index';
 
 /*
    Шаблон автора из списка авторов

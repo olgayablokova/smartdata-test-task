@@ -1,10 +1,4 @@
-import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {RootReducer} from "./Store/Index";
 import {useState} from "react";
-
-type RootState = ReturnType<typeof RootReducer>;
-
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useInput = (value: string) => {
     const [state, setState] = useState(value);

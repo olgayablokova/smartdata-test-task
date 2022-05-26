@@ -1,17 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {navItem} from "./Utils";
-import {useDispatch} from "react-redux";
-import {fetchData as BooksData} from "./Books/Store/Utils";
 
-import authMobx from './Authorization/Store/AuthMobx'
+import {authMobx} from './Store/Index'
 import {observer} from "mobx-react-lite";
 
 import './Page.css';
+import booksMobx from "./Books/Store/BooksMobx";
 
 const NavbarTmp = () => {
     const token = authMobx.token;
-    const dispatch = useDispatch();
 
     async function onSubmit() {
         const headers = {
@@ -32,7 +30,7 @@ const NavbarTmp = () => {
         await fetch('https://mobile.fakebook.press/api/logout', optsLogout)
             .then(data=> data.json())
             .then(() => authMobx.clearToken());
-        await BooksData(opts, dispatch);
+        await booksMobx.fetchData(opts);
     }
 
     return (

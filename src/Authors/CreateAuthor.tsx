@@ -1,22 +1,20 @@
 import React from "react";
-import {useDispatch} from "react-redux";
 import './Authors.css';
 import './Authors.css';
 
-import AuthorsMobx from './Store/AuthMobx';
+import {authorsMobx} from '../Store/Index';
 
 interface IProps {
     token: string;
 }
 
 export const CreateAuthor = ({token}: IProps) => {
-    const dispatch = useDispatch();
 
     return (
         <form className="CreateAuthor__list"
               onSubmit={(e) => {
                   e.preventDefault();
-                  AuthorsMobx.addAuthor(e, token);
+                  authorsMobx.addAuthor(e, token);
                   }}>
             <input type="text"
                    placeholder="ФИО автора"

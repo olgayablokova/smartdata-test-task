@@ -4,7 +4,7 @@ import {ListBooks} from './ListBooks';
 import {Filter} from "../Filter/Filter";
 import './Books.css';
 
-import authMobx from "../Authorization/Store/AuthMobx";
+import {authMobx} from "../Store/Index";
 import {observer} from "mobx-react-lite";
 
 const ListTml = () => {

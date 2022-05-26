@@ -11,13 +11,6 @@ interface IErrorValidate {
     email: string[];
 }
 
-
-export const loadJSON = (key: string | null) =>
-    // @ts-ignore
-    key && localStorage.getItem(key);
-export const saveJSON = (key: string, data: string) =>
-    localStorage.setItem(key, data);
-
 class AuthMobx {
     error: IErrorValidate | null = null;
     token = ''
@@ -61,7 +54,6 @@ class AuthMobx {
             data.json()
                 .then(data => {
                     this.token = data.data.token
-                    saveJSON(keyToken, data.data.token)
                     this.favUserBooks();
                 });
         } else {
@@ -78,7 +70,7 @@ class AuthMobx {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${loadJSON(keyToken)}`
+                'Authorization': `Bearer ${this.token}`
             }
         }
         await fetch('https://mobile.fakebook.press/api/favorite-books',

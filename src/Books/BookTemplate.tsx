@@ -3,8 +3,9 @@ import {Icon} from '../Favorites/Icon';
 import './Books.css';
 import {IRecord} from './Store/Reducer';
 
-import faMobx from '../Favorites/FaMobx';
-import authMobx from "../Authorization/Store/AuthMobx";
+import {faMobx} from '../Store/Index';
+import {authMobx} from "../Store/Index";
+import {observer} from "mobx-react-lite";
 
 /*
    Шаблон книги из списка книг
@@ -16,7 +17,7 @@ interface IProps {
     favBooksUser?: number[] | null
 }
 
-export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
+export const Template = ({book, token, favBooksUser}: IProps) => {
     const defaultState = favBooksUser?.includes(book.id);
     const [state, setState] = useState(defaultState);
 
@@ -45,3 +46,5 @@ export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
         </div>
     );
 }
+
+export const BookTemplate = observer(Template)

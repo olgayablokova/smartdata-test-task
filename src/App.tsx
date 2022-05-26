@@ -7,10 +7,25 @@ import {List as AuthorList} from './Authors/List';
 import {List as BooksList} from './Books/List';
 import {BrowserRouter} from "react-router-dom";
 
-import authMobx from './Authors/Store/AuthMobx'
-import booksMobx from "./Books/Store/BooksMobx";
+import { injectStores } from '@mobx-devtools/tools';
+import {
+    authMobx,
+    authorsMobx,
+    booksMobx,
+    faMobx,
+    regMobx
+} from './Store/Index'
+import {observer} from "mobx-react-lite";
 
-export const App = () => {
+injectStores({
+    authMobx,
+    authorsMobx,
+    booksMobx,
+    faMobx,
+    regMobx
+});
+
+const AppTml = () => {
 
     useEffect(()=> {
         const opts = {
@@ -21,7 +36,7 @@ export const App = () => {
             }
         };
 
-        authMobx.fetchData(opts);
+        authorsMobx.fetchData(opts);
         booksMobx.fetchData(opts);
     }, []);
 
@@ -30,7 +45,7 @@ export const App = () => {
         <div className="app-wrapper">
             <Navbar/>
             <Routes>
-                <Route path="/" element={<BooksList/>}/>
+                <Route path="/" element={<BooksList />}/>
                 <Route path="/authorization" element={<Authorization/>}/>
                 <Route path="/registration" element={<Registration/>}/>
                 <Route path="/authors" element={<AuthorList/>}/>
@@ -39,3 +54,4 @@ export const App = () => {
         </div>
     </BrowserRouter>)
 }
+export const App = observer(AppTml)

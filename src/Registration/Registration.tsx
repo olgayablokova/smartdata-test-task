@@ -1,7 +1,7 @@
 import React from "react";
 import './Registration.css';
 
-import regMobx from './Store/RegMobx';
+import {regMobx} from '../Store/Index';
 import {observer} from "mobx-react-lite";
 
 const RegistrationTml = () => {

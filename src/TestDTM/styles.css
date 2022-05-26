@@ -1,0 +1,28 @@
+.btn__incCount {
+    margin-right: 10px;
+}
+
+.btn {
+    margin: 10px;
+}
+
+.App {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.str {
+    display: flex;
+    align-items: center;
+}
+
+.btn__detele {
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
