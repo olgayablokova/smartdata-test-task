@@ -1,21 +1,23 @@
-import React from "react";
-import {useDispatch} from "react-redux";
-import {submit} from "./Store/Utils";
-import {useTypedSelector} from "../Utils";
+import React from 'react';
+import {observer} from 'mobx-react-lite';
+import authMobx from './Store/AuthMobx'
 import './Authorization.css';
 
-export default function Authorization() {
-    const {error, token} = useTypedSelector(state => state.user);
-    const dispatch = useDispatch();
+const AuthorizationTpl = () => {
+    const error = authMobx.error;
 
     return (
         <div className="Authorization">
-            {!token &&
-                <form id="from" onSubmit={(e) =>
-                submit(e, dispatch)}
-                className="Authorization__form">
+            {!authMobx.token &&
+                <form id="from"
+                      onSubmit={(e) => {
+                          e.preventDefault()
+                          authMobx.submit(e)
+                      }}
+                      className="Authorization__form">
                 {(error?.login || error?.email) &&
-                    <label>{error?.login && error?.login[0] || error?.email && error?.email[0]}</label>}
+                    <label>{error?.login && error?.login[0]
+                        || error?.email && error?.email[0]}</label>}
                 <input type="email"
                        name="email"
                        placeholder="Введите email"
@@ -38,7 +40,9 @@ export default function Authorization() {
                 <button type="submit"
                 className="">Войти</button>
             </form>}
-            {token && <div className="Authorization__inside">Авторизовались</div>}
+            {authMobx.token && <div className="Authorization__inside">Авторизовались</div>}
         </div>
     );
 }
+
+export const Authorization = observer(AuthorizationTpl);

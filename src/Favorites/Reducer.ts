@@ -1,5 +1,4 @@
 import {Dispatch} from "redux";
-import { AnyAction } from 'redux';
 
 export const DEFAULT_STATE: IState = {
     status: false,

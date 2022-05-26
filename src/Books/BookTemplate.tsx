@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {Icon} from '../Favorites/Icon';
-import {EditFavorite} from "../Favorites/Reducer";
-import {useDispatch} from "react-redux";
 import './Books.css';
 import {IRecord} from './Store/Reducer';
+
+import faMobx from '../Favorites/FaMobx';
+import authMobx from "../Authorization/Store/AuthMobx";
 
 /*
    Шаблон книги из списка книг
@@ -18,7 +19,6 @@ interface IProps {
 export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
     const defaultState = favBooksUser?.includes(book.id);
     const [state, setState] = useState(defaultState);
-    const dispatch = useDispatch();
 
     return (
         <div className="Book__El">
@@ -36,12 +36,10 @@ export const BookTemplate = ({book, token, favBooksUser}: IProps) => {
                       selected={state}
                       onSelect={() => {
                           setState(!state);
-                          //TODO здесь и в остальных местах перейти на toolkit
-                          // @ts-ignore
-                          dispatch(EditFavorite(book.id, !state, token));
+                          faMobx.editFavorite(book.id, !state, token);
                           const payload = !state ? favBooksUser && favBooksUser.concat([book.id]) :
                               favBooksUser && favBooksUser.filter(el=> el !== book.id);
-                          dispatch({type: 'FETCH_FAV', payload});
+                          authMobx.editFavBooks(payload)
                       }}/>
             }
         </div>

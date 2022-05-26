@@ -2,11 +2,13 @@ import React from 'react';
 import {CreateBook} from './CreateBook';
 import {ListBooks} from './ListBooks';
 import {Filter} from "../Filter/Filter";
-import {useTypedSelector} from "../Utils";
 import './Books.css';
 
-export const List = () => {
-    const {token} = useTypedSelector(state => state.user);
+import authMobx from "../Authorization/Store/AuthMobx";
+import {observer} from "mobx-react-lite";
+
+const ListTml = () => {
+    const token = authMobx.token;
     return (
         <div>
             {token &&
@@ -19,3 +21,5 @@ export const List = () => {
         </div>
     );
 }
+
+export const List = observer(ListTml)

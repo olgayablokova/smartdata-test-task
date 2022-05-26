@@ -1,6 +1,5 @@
 import {FaPencilAlt, FaTrashAlt} from "react-icons/fa";
 import React from "react";
-import {IRecord} from "../Books/Store/Reducer";
 
 interface IProps {
     onEdit: React.MouseEventHandler<SVGElement>,

@@ -1,12 +1,16 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {navItem, useTypedSelector} from "./Utils";
+import {navItem} from "./Utils";
 import {useDispatch} from "react-redux";
 import {fetchData as BooksData} from "./Books/Store/Utils";
+
+import authMobx from './Authorization/Store/AuthMobx'
+import {observer} from "mobx-react-lite";
+
 import './Page.css';
 
-export const Navbar = () => {
-    const {token} = useTypedSelector(state => state.user);
+const NavbarTmp = () => {
+    const token = authMobx.token;
     const dispatch = useDispatch();
 
     async function onSubmit() {
@@ -27,7 +31,7 @@ export const Navbar = () => {
         }
         await fetch('https://mobile.fakebook.press/api/logout', optsLogout)
             .then(data=> data.json())
-            .then(() => dispatch({type: 'FETCH_AUTH', payload: ''}));
+            .then(() => authMobx.clearToken());
         await BooksData(opts, dispatch);
     }
 
@@ -47,3 +51,4 @@ export const Navbar = () => {
         </>
     )
 }
+export const Navbar = observer(NavbarTmp);

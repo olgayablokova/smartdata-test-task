@@ -1,4 +1,4 @@
-interface IErrorValidate {
+export interface IErrorValidate {
     email: string[];
     password: string[];
     name: string[];

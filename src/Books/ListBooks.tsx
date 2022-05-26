@@ -1,23 +1,25 @@
-import React, {memo, useEffect} from 'react';
-import {useTypedSelector} from "../Utils";
+import React, {memo} from 'react';
 import {BookTemplate} from './BookTemplate';
 import './Books.css';
 
-export const ListBooks = () => {
-    const {fetch: books, loading, error} = useTypedSelector(state => state.books);
-    const {token} = useTypedSelector(state => state.user);
-    const {favBooksUser} = useTypedSelector(state => state.favorites);
+import authMobx from "../Authorization/Store/AuthMobx";
+import booksMobx from "./Store/BooksMobx";
+import {observer} from "mobx-react-lite";
+
+const Books = () => {
+    const token = authMobx.token;
+    const books = booksMobx.books;
     const Book = memo(BookTemplate);
 
-    if (loading) {
+    if (booksMobx.loading) {
         return <div>loading</div>;
     }
 
-    if (error) {
+    if (booksMobx.error) {
         return <div>Error</div>;
     }
 
-    if (!books.length) {
+    if (!booksMobx.books.length) {
         return <div>Empty view</div>;
     }
 
@@ -28,10 +30,12 @@ export const ListBooks = () => {
                     return <Book key={el.id}
                                  book={el}
                                  token={token}
-                                 favBooksUser={favBooksUser}
+                                 favBooksUser={authMobx.favBooks}
                     />
                 })}
             </div>
         </>
     );
 }
+
+export const ListBooks = observer(Books)

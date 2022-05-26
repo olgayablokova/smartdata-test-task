@@ -1,19 +1,21 @@
 import React, {memo} from 'react'
-import {useTypedSelector} from "../Utils";
 import {AuthorTemplate} from './AuthorTemplate';
 import {CreateAuthor} from './CreateAuthor';
 import './Authors.css';
 
-export const List = () => {
-    const {fetch: authors, loading, error} = useTypedSelector(state => state.authors);
-    const {token} = useTypedSelector(state => state.user);
+import authMobx from "../Authorization/Store/AuthMobx";
+import AuthorsMobx from "./Store/AuthMobx";
+import {observer} from "mobx-react-lite";
+
+const ListTmp = () => {
+    const token = authMobx.token;
     const PureTable = memo(AuthorTemplate);
 
-    if (loading) {
+    if (AuthorsMobx.loading) {
         return <div>loading</div>;
     }
 
-    if (error) {
+    if (AuthorsMobx.error) {
         return <div>error</div>;
     }
 
@@ -21,10 +23,12 @@ export const List = () => {
         <div>
             {token && <CreateAuthor token={token}/>}
             <div className="Author__List">
-            {authors.map(el => {
-               return <PureTable key={el.id} author={el}/>
+            {AuthorsMobx.fetch.map(el => {
+               return <PureTable key={el.id} author={el} token={token}/>
             })}
             </div>
         </div>
     );
 }
+{/*{token && <FaTrashAlt onClick={() => AuthorsMobx.authorDelete(token, el.id)}/>}*/}
+export const List = observer(ListTmp);

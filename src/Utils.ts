@@ -32,3 +32,5 @@ export const navItem = [{
     to: "books",
     name: "Список книг"
 }]
+
+export const keyToken = 'token';
